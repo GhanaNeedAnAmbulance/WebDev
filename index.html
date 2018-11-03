@@ -33,7 +33,7 @@
                     <div v-if='loading' class="mdl-spinner mdl-js-spinner is-active"></div>
 
                     <ul class="mdl-list">
-                        <li v-for='hospital in hospitals' v-bind:class='{"full-hospital": hospital.emptyBeds === 0}'
+                        <li v-for='hospital in hospitals' v-bind:class='{"full-hospital": hospital.emptyBeds === 0}' v-bind:id='hospital.id'
                             class="mdl-list__item mdl-list__item--three-line">
                             <span class="mdl-list__item-primary-content">
                                 <span>{{ hospital.hospitalName }} &ndash; {{ hospital.emptyBeds }}/{{ hospital.totBeds
