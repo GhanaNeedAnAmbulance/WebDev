@@ -8,7 +8,7 @@ var app = new Vue({
         markers: [],
         highlighted: '',
         map: null,
-        mapCenter: { lat: 41.7056, lng: 86.2353 },
+        mapCenter: { lat: 41.7056, lng: -86.2353 },
         circle: 'http://www.robotwoods.com/dev/misc/bluecircle.png'
     },
     mounted: function () { // initialize map after component loaded
