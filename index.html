@@ -12,6 +12,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBda6SWa2K8EKzL_QWtkF1SW7msE7palJI">
+    </script>
 </head>
 
 <body>
@@ -31,13 +33,11 @@
                     <div v-if='loading' class="mdl-spinner mdl-js-spinner is-active"></div>
 
                     <ul class="mdl-list">
-                        <li
-                            v-for='hospital in hospitals'
-                            v-bind:class='{"full-hospital": hospital.emptyBeds === 0}'
-                            class="mdl-list__item mdl-list__item--three-line"
-                        >
+                        <li v-for='hospital in hospitals' v-bind:class='{"full-hospital": hospital.emptyBeds === 0}'
+                            class="mdl-list__item mdl-list__item--three-line">
                             <span class="mdl-list__item-primary-content">
-                                <span>{{ hospital.hospitalName }} &ndash; {{ hospital.emptyBeds }}/{{ hospital.totBeds }} beds empty</span>
+                                <span>{{ hospital.hospitalName }} &ndash; {{ hospital.emptyBeds }}/{{ hospital.totBeds
+                                    }} beds empty</span>
                                 <address class="mdl-list__item-text-body">
                                     {{ hospital.address }}<br>
                                     {{ hospital.phone }}
@@ -48,16 +48,22 @@
                 </div>
 
                 <div class="mdl-cell mdl-cell--6-col mdl-cell--order-1-phone">
-                    <h2>Map</h2>
 
                     <div id="map">
-                        <span>{{ mapName }}</span>
                     </div>
                 </div>
             </div>
         </main>
     </div>
-
+    <style scoped>
+        html {
+            height: 100%
+        }
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
     <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase-database.js"></script>
 
@@ -74,6 +80,11 @@
         firebase.initializeApp(config);
     </script>
 
-<script src="./app.js"></script>
-<script src="./database.js"></script>
+    <script src="./app.js"></script>
+
+    <script src="./database.js"></script>
+
+
+
+
 </body>

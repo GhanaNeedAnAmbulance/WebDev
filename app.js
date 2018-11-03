@@ -3,6 +3,15 @@ var app = new Vue({
     data: {
         loading: true,
         hospitals: {},
-        mapName: 'My map'
-    }
+        markers: []
+    },
+    mounted: function () { // initialize map after component loaded
+
+        this.map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: 61.180059, lng: -149.822075 },
+            scrollwheel: false,
+            zoom: 4
+        })
+    },
+    
 });
