@@ -1,5 +1,6 @@
 firebase.database().ref('/Hospital').once('value', function (snapshot) {
     app.loading = false;
+    app.setCurrentPosition()
     app.hospitals = snapshot.val();
     app.snapshot = snapshot
     app.loadMarker();
