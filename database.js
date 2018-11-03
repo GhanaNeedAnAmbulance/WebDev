@@ -1,22 +1,25 @@
 firebase.database().ref('/Hospital').once('value', function (snapshot) {
-    app.loading = false;
-    app.setCurrentPosition()
+    app.setCurrentPosition();
     app.hospitals = snapshot.val();
-    app.snapshot = snapshot
-    app.loadMarker();
+    app.snapshot = snapshot;
 
-    addBedListeners(snapshot.val());
-    console.log(app.destinations)
+    if (app.hospitals !== null) {
+        app.loading = false;
+
+        Object.keys(snapshot.val()).forEach(processHospital);
+    }
 });
 
-function addBedListeners (data) {
-    Object.keys(data).forEach(function (hospital) {
-        firebase.database().ref('/Hospital/' + hospital + '/emptyBeds').on('value', function (snapshot) {
-            app.hospitals[hospital].emptyBeds = snapshot.val();
-        })
-        currHosp = app.hospitals[hospital]
-        var id = currHosp.id
-        tempObj = [currHosp.lat, currHosp.lng]
-        app.destinations[id] = tempObj
-    })
+function processHospital (hospital) {
+    var hospitalObj = app.hospitals[hospital];
+
+    app.destinations[hospitalObj.id] = [hospitalObj.lat, hospitalObj.lng];
+    app.addMarker(hospitalObj);
+    
+    app.hospitals[hospital].travelDistance = '34 km';
+    app.hospitals[hospital].travelTime = '45 min';
+
+    firebase.database().ref('/Hospital/' + hospital + '/emptyBeds').on('value', function (snapshot) {
+        app.hospitals[hospital].emptyBeds = snapshot.val();
+    });
 }

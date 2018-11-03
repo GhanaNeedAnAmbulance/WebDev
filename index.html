@@ -44,11 +44,15 @@
                         class="mdl-list__item mdl-list__item--three-line">
                         <span class="mdl-list__item-primary-content">
                             <span>{{ hospital.hospitalName }} &ndash;
-                                {{ hospital.emptyBeds }}/{{ hospital.totBeds }} beds empty</span>
+                                {{ hospital.emptyBeds }}/{{ hospital.totBeds }} beds available</span>
                             <address class="mdl-list__item-text-body">
                                 {{ hospital.address }}<br>
                                 {{ hospital.phone }}
                             </address>
+                        </span>
+
+                        <span class="mdl-list__item-secondary-content">
+                            <a  class="mdl-list__item-secondary-action" target="_blank" :href='getMapsUrl(hospital)'>{{ hospital.travelTime }} ({{ hospital.travelDistance }})</a>
                         </span>
                     </li>
                 </ul>

@@ -13,30 +13,30 @@ var app = new Vue({
         destIDs: []
     },
     mounted: function () { // initialize map after component loaded
-        map = new google.maps.Map(document.getElementById('map'), {
+        this.map = new google.maps.Map(document.getElementById('map'), {
             center: this.mapCenter,
             mapTypeControl: false,
             scrollwheel: false,
             zoom: 4
-        })
+        });
     },
     methods: {
-
-        loadMarker: function (markerData) {
-            this.snapshot.forEach(function (child) {
-                var childs = child.val()
-                var marker = new google.maps.Marker({
-                    position: { lat: childs.lat, lng: childs.lng },
-                    map: this.map,
-                    title: childs.hospitalName
-                })
-                marker.addListener('click', () => {
-                    location.hash = childs.id
-                    this.highlighted = childs.id
-                    openMaps(childs.lat, childs.lng)
-                })
-
-            })
+        getMapsUrl: function (hospital) {
+            return 'https://www.google.com/maps/dir/?api=1' +
+                '&origin=' + this.mapCenter.lat + ',' + this.mapCenter.lng +
+                '&destination=' + hospital.lat + ',' + hospital.lng;
+        },
+        addMarker: function (hospital) {
+            console.log(hospital)
+            var marker = new google.maps.Marker({
+                position: { lat: hospital.lat, lng: hospital.lng },
+                map: this.map,
+                title: hospital.hospitalName
+            });
+            marker.addListener('click', function () {
+                location.hash = hospital.id;
+                this.highlighted = hospital.id;
+            });
         },
         setCurrentPosition: function () {
             if (navigator.geolocation) {
@@ -44,12 +44,12 @@ var app = new Vue({
                 navigator.geolocation.getCurrentPosition(function (location) {
                     console.log('map center set')
                     this.mapCenter = { lat: location.coords.latitude, lng: location.coords.longitude }
-                    this.map.setCenter(new google.maps.LatLng(location.coords.latitude, location.coords.longitude))
+                    app.map.setCenter(new google.maps.LatLng(location.coords.latitude, location.coords.longitude))
 
                     // current location icon
                     var marker = new google.maps.Marker({
                         position: { lat: location.coords.latitude, lng: location.coords.longitude },
-                        map: this.map,
+                        map: app.map,
                         icon: './bluecircle.png'
                     })
 
@@ -62,16 +62,6 @@ var app = new Vue({
         }
     }
 });
-
-var openMaps = function (clat, clng) {
-    var url = "https://www.google.com/maps/dir/?api=1"
-    var origin = "&origin=" + mapCenter.lat + "," + mapCenter.lng
-    var destination = "&destination=" + clat + "," + clng
-    var newUrl = new URL(url + origin + destination)
-
-    var win = window.open(newUrl, '_blank')
-    win.focus()
-}
 
 function callback(response, status) {
 
