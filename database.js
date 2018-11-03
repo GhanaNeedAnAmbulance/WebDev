@@ -12,6 +12,8 @@ function addBedListeners (data) {
     Object.keys(data).forEach(function (hospital) {
         firebase.database().ref('/Hospital/' + hospital + '/emptyBeds').on('value', function (snapshot) {
             app.hospitals[hospital].emptyBeds = snapshot.val();
+            app.hospitals[hospital].distance = '0'
+            app.hospitals[hospital].time = 0
         })
     })
 }

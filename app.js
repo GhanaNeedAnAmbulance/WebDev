@@ -20,6 +20,7 @@ var app = new Vue({
         })
     },
     methods: {
+
         loadMarker: function (markerData) {
             this.snapshot.forEach(function (child) {
                 var childs = child.val()
@@ -31,6 +32,7 @@ var app = new Vue({
                 marker.addListener('click', () => {
                     location.hash = childs.id
                     this.highlighted = childs.id
+                    openMaps(childs.lat, childs.lng)
                 })
             })
         },
@@ -53,3 +55,13 @@ var app = new Vue({
         }
     }
 });
+
+var openMaps = function(clat, clng) {
+    var url = "https://www.google.com/maps/dir/?api=1"
+    var origin = "&origin=" + mapCenter.lat + "," + mapCenter.lng
+    var destination = "&destination=" + clat + "," + clng
+    var newUrl = new URL(url + origin + destination)
+
+    var win = window.open(newUrl, '_blank')
+    win.focus()
+}
