@@ -5,6 +5,7 @@ var app = new Vue({
         hospitals: {},
         snapshot: {},
         markers: [],
+        highlighted: '',
         map: null
     },
     mounted: function () { // initialize map after component loaded
@@ -22,7 +23,12 @@ var app = new Vue({
                 var childs = child.val()
                 var marker = new google.maps.Marker({
                     position: { lat: childs.lat, lng: childs.lng },
-                    map: this.map
+                    map: this.map,
+                    title: childs.hospitalName
+                })
+                marker.addListener('click', () => {
+                    location.hash = childs.id
+                    this.highlighted = childs.id
                 })
             })
         }

@@ -3,5 +3,6 @@ firebase.database().ref('/Hospital').on('value', function (snapshot) {
     app.loading = false;
     app.hospitals = snapshot.val();
     app.snapshot = snapshot
-    app.loadMarker()    
+    if (app.markers.length == 0) // if markers already loaded, don't do again
+        app.loadMarker()
 })
