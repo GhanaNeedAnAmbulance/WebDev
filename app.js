@@ -13,6 +13,7 @@ var app = new Vue({
     mounted: function () { // initialize map after component loaded
         map = new google.maps.Map(document.getElementById('map'), {
             center: this.mapCenter,
+            mapTypeControl: false,
             scrollwheel: false,
             zoom: 4
         })
