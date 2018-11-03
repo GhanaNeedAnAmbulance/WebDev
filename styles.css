@@ -1,3 +1,21 @@
+main {
+    width: calc(100% - 16px);
+}
+
+#map {
+    min-height: 350px;
+    height: 100%;
+    width: 100%;
+}
+
+.hospital-list {
+    overflow: auto;
+}
+
+li:target {
+    background-color: #aaff32;
+}
+
 .full-hospital {
     opacity: 0.5;
 }

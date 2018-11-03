@@ -18,56 +18,40 @@
 </head>
 
 <body>
-    <div id="app" class="mdl-layout mdl-js-layout">
+    <div id="app" class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
         <header class="mdl-layout__header">
             <div class="mdl-layout__header-row">
-                <!-- Title -->
                 <h1 class="mdl-layout-title">Ghana Need an Ambulance</h1>
             </div>
         </header>
 
-        <main class="mdl-layout__content">
-            <div class="mdl-grid">
-                <div class="mdl-cell mdl-cell--6-col">
-                    <h2>Hospitals</h2>
+        <main class="mdl-layout__content mdl-grid">
+            <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--order-2-tablet mdl-cell--order-2-phone">
+                <h2>Hospitals</h2>
 
-                    <div v-if='loading' class="mdl-spinner mdl-js-spinner is-active"></div>
+                <div v-if='loading' class="mdl-spinner mdl-js-spinner is-active"></div>
 
-                    <ul class="mdl-list">
-                        <li v-for='hospital in hospitals' v-bind:class='{"full-hospital": hospital.emptyBeds === 0}' v-bind:id='hospital.id'
-                            class="mdl-list__item mdl-list__item--three-line">
-                            <span class="mdl-list__item-primary-content">
-                                <span>{{ hospital.hospitalName }} &ndash; {{ hospital.emptyBeds }}/{{ hospital.totBeds
-                                    }} beds empty</span>
-                                <address class="mdl-list__item-text-body">
-                                    {{ hospital.address }}<br>
-                                    {{ hospital.phone }}
-                                </address>
-                            </span>
-                        </li>
-                    </ul>
-                </div>
+                <ul class="mdl-list hospital-list">
+                    <li v-for='hospital in hospitals' v-bind:class='{"full-hospital": hospital.emptyBeds === 0}' v-bind:id='hospital.id'
+                        class="mdl-list__item mdl-list__item--three-line">
+                        <span class="mdl-list__item-primary-content">
+                            <span>{{ hospital.hospitalName }} &ndash;
+                                {{ hospital.emptyBeds }}/{{ hospital.totBeds }} beds empty</span>
+                            <address class="mdl-list__item-text-body">
+                                {{ hospital.address }}<br>
+                                {{ hospital.phone }}
+                            </address>
+                        </span>
+                    </li>
+                </ul>
+            </div>
 
-                <div class="mdl-cell mdl-cell--6-col mdl-cell--order-1-phone">
-
-                    <div id="map">
-                    </div>
-                </div>
+            <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
+                <div id="map"></div>
             </div>
         </main>
     </div>
-    <style scoped>
-        html {
-            height: 100%
-        }
-        #map {
-            height: 100%;
-            width: 100%;
-        }
-        li:target {
-            background-color: #aaff32;
-        }
-    </style>
+
     <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase-database.js"></script>
 
