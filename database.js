@@ -6,14 +6,17 @@ firebase.database().ref('/Hospital').once('value', function (snapshot) {
     app.loadMarker();
 
     addBedListeners(snapshot.val());
+    console.log(app.destinations)
 });
 
 function addBedListeners (data) {
     Object.keys(data).forEach(function (hospital) {
         firebase.database().ref('/Hospital/' + hospital + '/emptyBeds').on('value', function (snapshot) {
             app.hospitals[hospital].emptyBeds = snapshot.val();
-            app.hospitals[hospital].distance = '0'
-            app.hospitals[hospital].time = 0
         })
+        currHosp = app.hospitals[hospital]
+        var id = currHosp.id
+        tempObj = [currHosp.lat, currHosp.lng]
+        app.destinations[id] = tempObj
     })
 }
