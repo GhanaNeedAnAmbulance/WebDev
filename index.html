@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en-US">
+
 <head>
-	<meta charset="utf-8">
+    <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    
+
     <title>Ghana Need an Ambulance</title>
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -21,7 +22,7 @@
                 <h1 class="mdl-layout-title">Ghana Need an Ambulance</h1>
             </div>
         </header>
-        
+
         <main class="mdl-layout__content">
             <div class="mdl-grid">
                 <div class="mdl-cell mdl-cell--6-col">
@@ -30,10 +31,10 @@
                     <ul class="mdl-list">
                         <li class="mdl-list__item mdl-list__item--three-line">
                             <span class="mdl-list__item-primary-content">
-                                <span>{{ hospitalName }}</span>
+                                <span>{{ hospitalData.hospitalName }}</span>
                                 <span class="mdl-list__item-text-body">
-                                    {{ address }}<br>
-                                    {{ phone }}
+                                    {{ hospitalData.address }}<br>
+                                    {{ hospitalData.phone }}
                                 </span>
                             </span>
                         </li>
@@ -42,22 +43,28 @@
 
                 <div class="mdl-cell mdl-cell--6-col mdl-cell--order-1-phone">
                     <h2>Map</h2>
+
+                    <div id="map">
+                        <span>{{ mapName }}</span>
+                    </div>
                 </div>
             </div>
         </main>
     </div>
-    
-    <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase-database.js"></script>
+
     <script>
-    // Initialize Firebase
-    var config = {
-        apiKey: "AIzaSyDLG0U3LOcYkrs8pgl7bWwi0ozI0LcSCBQ",
-        authDomain: "gnaa-4e1a5.firebaseapp.com",
-        databaseURL: "https://gnaa-4e1a5.firebaseio.com",
-        projectId: "gnaa-4e1a5",
-        storageBucket: "gnaa-4e1a5.appspot.com",
-        messagingSenderId: "761366460865"
-    };
-    firebase.initializeApp(config);
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyDLG0U3LOcYkrs8pgl7bWwi0ozI0LcSCBQ",
+            authDomain: "gnaa-4e1a5.firebaseapp.com",
+            databaseURL: "https://gnaa-4e1a5.firebaseio.com",
+            projectId: "gnaa-4e1a5",
+            storageBucket: "gnaa-4e1a5.appspot.com",
+            messagingSenderId: "761366460865"
+        };
+        firebase.initializeApp(config);
     </script>
 </body>
