@@ -28,7 +28,7 @@ li:target {
     opacity: 0.5;
 }
 
-#hospitalContainer h2,
+#hospitalContainer h3,
 #hospitalContainer div {
     display: inline;
     vertical-align: top;
