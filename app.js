@@ -52,8 +52,19 @@ var app = new Vue({
                         position: this.userLocation,
                         map: app.map,
                         icon: './bluecircle.png',
-                        zIndex: 0
+                        zIndex: 1
                     })
+                    //Add the circle
+                    var currCircle = new google.maps.Circle({
+                        strokeColor: '#002',
+                        strokeOpacity: 0.8,
+                        strokeWeight: 2,
+                        fillColor: '#aa9f',
+                        fillOpacity: 0.35,
+                        map: app.map,
+                        center: this.userLocation,
+                        radius: 10000
+                    });
 
                     formatRequest()
                 }),
@@ -66,7 +77,7 @@ var app = new Vue({
 });
 
 function callback(response, status) {
-
+    console.log(response)
     if (status == 'OK') {
         var origins = response.originAddresses;
 
@@ -77,7 +88,7 @@ function callback(response, status) {
                 var distance = element.distance.text;
                 var duration = element.duration.text;
                 var durationRaw = element.duration.value;
-                
+
                 Vue.set(app.hospitals[j], 'travelDistance', distance);
                 Vue.set(app.hospitals[j], 'travelTime', duration);
                 Vue.set(app.hospitals[j], 'travelTimeRaw', durationRaw);

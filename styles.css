@@ -27,3 +27,13 @@ li:target {
 .full-hospital {
     opacity: 0.5;
 }
+
+#hospitalContainer h2,
+#hospitalContainer div {
+    display: inline;
+    vertical-align: top;
+}
+
+#hospitalContainer div {
+    float: right;
+}
