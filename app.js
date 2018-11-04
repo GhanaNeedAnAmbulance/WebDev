@@ -8,13 +8,13 @@ var app = new Vue({
         markers: [],
         highlighted: '',
         map: null,
-        mapCenter: { lat: 41.7056, lng: -86.2353 },
+        userLocation: { lat: 41.7056, lng: -86.2353 },
         destinations: {},
         destIDs: []
     },
     mounted: function () { // initialize map after component loaded
         this.map = new google.maps.Map(document.getElementById('map'), {
-            center: this.mapCenter,
+            center: this.userLocation,
             mapTypeControl: false,
             scrollwheel: false,
             zoom: 8
@@ -23,7 +23,7 @@ var app = new Vue({
     methods: {
         getMapsUrl: function (hospital) {
             return 'https://www.google.com/maps/dir/?api=1' +
-                '&origin=' + this.mapCenter.lat + ',' + this.mapCenter.lng +
+                '&origin=' + this.userLocation.lat + ',' + this.userLocation.lng +
                 '&destination=' + hospital.lat + ',' + hospital.lng;
         },
         addMarker: function (hospital) {
@@ -33,23 +33,23 @@ var app = new Vue({
                 map: this.map,
                 title: hospital.hospitalName
             });
+
             marker.addListener('click', function () {
                 location.hash = hospital.id;
                 this.highlighted = hospital.id;
             });
+
             app.bounds.extend(position);
         },
         setCurrentPosition: function () {
             if (navigator.geolocation) {
 
                 navigator.geolocation.getCurrentPosition(function (location) {
-                    console.log('map center set')
-                    this.mapCenter = { lat: location.coords.latitude, lng: location.coords.longitude }
-                    app.map.setCenter(this.mapCenter)
+                    this.userLocation = { lat: location.coords.latitude, lng: location.coords.longitude };
 
                     // current location icon
-                    var marker = new google.maps.Marker({
-                        position: { lat: location.coords.latitude, lng: location.coords.longitude },
+                    new google.maps.Marker({
+                        position: this.userLocation,
                         map: app.map,
                         icon: './bluecircle.png'
                     })
@@ -90,10 +90,10 @@ function callback(response, status) {
 
 }
 var formatRequest = function () {
-    // use mapCenter as origins
+    // use userLocation as origins
     // app.destination as destinations
 
-    var origin = new google.maps.LatLng(mapCenter.lat, mapCenter.lng)
+    var origin = new google.maps.LatLng(userLocation.lat, userLocation.lng)
     var destinations = []
     for (var id in app.destinations) {
         app.destIDs.push(id)
