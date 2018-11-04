@@ -3,7 +3,7 @@ var app = new Vue({
     data: {
         loading: true,
         hideFull: false,
-        hospitals: {},
+        hospitals: [],
         snapshot: {},
         markers: [],
         highlighted: '',
@@ -27,7 +27,6 @@ var app = new Vue({
                 '&destination=' + hospital.lat + ',' + hospital.lng;
         },
         addMarker: function (hospital) {
-            console.log(hospital)
             var marker = new google.maps.Marker({
                 position: { lat: hospital.lat, lng: hospital.lng },
                 map: this.map,
@@ -67,7 +66,6 @@ function callback(response, status) {
 
     if (status == 'OK') {
         var origins = response.originAddresses;
-        var destinations = response.destinationAddresses;
 
         for (var i = 0; i < origins.length; i++) {
             var results = response.rows[i].elements;
@@ -75,16 +73,17 @@ function callback(response, status) {
                 var element = results[j];
                 var distance = element.distance.text;
                 var duration = element.duration.text;
-                var to = destinations[j];
-
-                for (hospital in app.hospitals) {
-                    if (app.destIDs[j] == app.hospitals[hospital].id) {
-                        Vue.set(app.hospitals[hospital], 'travelDistance', distance)
-                        Vue.set(app.hospitals[hospital], 'travelTime', duration)
-                    }
-                }
+                var durationRaw = element.duration.value;
+                
+                Vue.set(app.hospitals[j], 'travelDistance', distance);
+                Vue.set(app.hospitals[j], 'travelTime', duration);
+                Vue.set(app.hospitals[j], 'travelTimeRaw', durationRaw);
             }
         }
+
+        app.hospitals.sort(function (a, b) {
+            return a.travelTimeRaw - b.travelTimeRaw;
+        });
     }
 
 }

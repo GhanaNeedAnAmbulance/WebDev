@@ -1,9 +1,8 @@
 firebase.database().ref('/Hospital').once('value', function (snapshot) {
     app.setCurrentPosition();
-    app.hospitals = snapshot.val();
-    app.snapshot = snapshot;
+    app.snapshot = snapshot.val();
 
-    if (app.hospitals !== null) {
+    if (snapshot.val() !== null) {
         app.loading = false;
 
         Object.keys(snapshot.val()).forEach(processHospital);
@@ -11,12 +10,14 @@ firebase.database().ref('/Hospital').once('value', function (snapshot) {
 });
 
 function processHospital (hospital) {
-    var hospitalObj = app.hospitals[hospital];
+    var hospitalObj = app.snapshot[hospital];
 
     app.destinations[hospitalObj.id] = [hospitalObj.lat, hospitalObj.lng];
     app.addMarker(hospitalObj);
 
     firebase.database().ref('/Hospital/' + hospital + '/emptyBeds').on('value', function (snapshot) {
-        app.hospitals[hospital].emptyBeds = snapshot.val();
+        hospitalObj.emptyBeds = snapshot.val();
     });
+
+    app.hospitals.push(hospitalObj);
 }
