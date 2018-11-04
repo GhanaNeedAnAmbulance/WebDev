@@ -41,17 +41,19 @@
                 <ul class="mdl-list hospital-list">
                     <li v-for='hospital in hospitals' v-if='!(hideFull && hospital.emptyBeds === 0)'
                         v-bind:class='{"full-hospital": hospital.emptyBeds === 0}' v-bind:id='hospital.id'
-                        class="mdl-list__item mdl-list__item--three-line">
-                        <span class="mdl-list__item-primary-content">
-                            <span>{{ hospital.hospitalName }} &ndash;
-                                {{ hospital.emptyBeds }}/{{ hospital.totBeds }} beds available</span>
+                        class="flex-wrap height-initial mdl-list__item mdl-list__item--three-line">
+                        <span class="height-initial mdl-list__item-primary-content">
+                            <span>
+                                {{ hospital.hospitalName }} &ndash;
+                                <strong>{{ hospital.emptyBeds }}/{{ hospital.totBeds }} beds available</strong>
+                            </span>
                             <address class="mdl-list__item-text-body">
                                 {{ hospital.address }}<br>
                                 {{ hospital.phone }}
                             </address>
                         </span>
 
-                        <span class="mdl-list__item-secondary-content">
+                        <span class="height-initial mdl-list__item-secondary-content">
                             <a class="mdl-list__item-secondary-action" target="_blank" :href='getMapsUrl(hospital)'>
                                 <template v-if='hospital.travelTime && hospital.travelDistance'>
                                     {{ hospital.travelTime }} ({{ hospital.travelDistance }})
