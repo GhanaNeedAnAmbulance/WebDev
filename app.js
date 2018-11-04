@@ -17,7 +17,7 @@ var app = new Vue({
             center: this.mapCenter,
             mapTypeControl: false,
             scrollwheel: false,
-            zoom: 4
+            zoom: 8
         });
     },
     methods: {
@@ -27,8 +27,9 @@ var app = new Vue({
                 '&destination=' + hospital.lat + ',' + hospital.lng;
         },
         addMarker: function (hospital) {
+            var position = { lat: hospital.lat, lng: hospital.lng };
             var marker = new google.maps.Marker({
-                position: { lat: hospital.lat, lng: hospital.lng },
+                position: position,
                 map: this.map,
                 title: hospital.hospitalName
             });
@@ -36,6 +37,7 @@ var app = new Vue({
                 location.hash = hospital.id;
                 this.highlighted = hospital.id;
             });
+            app.bounds.extend(position);
         },
         setCurrentPosition: function () {
             if (navigator.geolocation) {
@@ -43,7 +45,7 @@ var app = new Vue({
                 navigator.geolocation.getCurrentPosition(function (location) {
                     console.log('map center set')
                     this.mapCenter = { lat: location.coords.latitude, lng: location.coords.longitude }
-                    app.map.setCenter(new google.maps.LatLng(location.coords.latitude, location.coords.longitude))
+                    app.map.setCenter(this.mapCenter)
 
                     // current location icon
                     var marker = new google.maps.Marker({

@@ -1,11 +1,14 @@
 firebase.database().ref('/Hospital').once('value', function (snapshot) {
     app.setCurrentPosition();
     app.snapshot = snapshot.val();
+    app.bounds = new google.maps.LatLngBounds();
 
     if (snapshot.val() !== null) {
         app.loading = false;
 
         Object.keys(snapshot.val()).forEach(processHospital);
+
+        app.map.fitBounds(app.bounds);
     }
 });
 
