@@ -1,0 +1,39 @@
+main {
+    width: calc(100% - 16px);
+}
+
+.height-initial {
+    height: initial !important; /* override material styles */
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+#map {
+    min-height: 350px;
+    height: 100%;
+    width: 100%;
+}
+
+.hospital-list {
+    overflow: auto;
+}
+
+li:target {
+    background-color: #aaff32;
+}
+
+.full-hospital {
+    opacity: 0.5;
+}
+
+#hospitalContainer h2,
+#hospitalContainer div {
+    display: inline;
+    vertical-align: top;
+}
+
+#hospitalContainer div {
+    float: right;
+}
