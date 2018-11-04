@@ -52,7 +52,7 @@ var app = new Vue({
                         position: this.userLocation,
                         map: app.map,
                         icon: './bluecircle.png',
-                        zIndex: 1
+                        zIndex: 999
                     })
                     //Add the circle
                     var currCircle = new google.maps.Circle({
