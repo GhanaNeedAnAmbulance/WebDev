@@ -76,9 +76,12 @@ function callback(response, status) {
                 var distance = element.distance.text;
                 var duration = element.duration.text;
                 var to = destinations[j];
-                
+
                 for (hospital in app.hospitals) {
-                    console.log(hospital)
+                    if (app.destIDs[j] == app.hospitals[hospital].id) {
+                        Vue.set(app.hospitals[hospital], 'travelDistance', distance)
+                        Vue.set(app.hospitals[hospital], 'travelTime', duration)
+                    }
                 }
             }
         }
@@ -93,10 +96,8 @@ var formatRequest = function () {
     var destinations = []
     for (var id in app.destinations) {
         app.destIDs.push(id)
-        // temp.push(app.destinations[id])
         destinations.push({ lat: app.destinations[id][0], lng: app.destinations[id][1] })
     }
-    // console.log?(temp)
 
     var service = new google.maps.DistanceMatrixService();
     service.getDistanceMatrix(
@@ -104,6 +105,5 @@ var formatRequest = function () {
             origins: [origin],
             destinations: destinations,
             travelMode: 'DRIVING'
-            // unitSystem: UnitSystem,
         }, callback)
 }
