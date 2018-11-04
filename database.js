@@ -15,10 +15,6 @@ function processHospital (hospital) {
 
     app.destinations[hospitalObj.id] = [hospitalObj.lat, hospitalObj.lng];
     app.addMarker(hospitalObj);
-    
-    // have to use Vue.set to add new keys
-    Vue.set(app.hospitals[hospital], 'travelDistance', '34 km')
-    Vue.set(app.hospitals[hospital], 'travelTime', '45 min')
 
     firebase.database().ref('/Hospital/' + hospital + '/emptyBeds').on('value', function (snapshot) {
         app.hospitals[hospital].emptyBeds = snapshot.val();

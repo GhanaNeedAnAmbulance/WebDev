@@ -26,7 +26,7 @@
         </header>
 
         <main class="mdl-layout__content mdl-grid">
-            <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--order-2-tablet mdl-cell--order-2-phone">
+            <div class="hospital-list mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--order-2-tablet mdl-cell--order-2-phone">
                 <h2>Hospitals</h2>
 
                 <div>
@@ -52,7 +52,12 @@
                         </span>
 
                         <span class="mdl-list__item-secondary-content">
-                            <a  class="mdl-list__item-secondary-action" target="_blank" :href='getMapsUrl(hospital)'>{{ hospital.travelTime }} ({{ hospital.travelDistance }})</a>
+                            <a class="mdl-list__item-secondary-action" target="_blank" :href='getMapsUrl(hospital)'>
+                                <template v-if='hospital.travelTime && hospital.travelDistance'>
+                                    {{ hospital.travelTime }} ({{ hospital.travelDistance }})
+                                </template>
+                                <template v-else>Directions</template>
+                            </a>
                         </span>
                     </li>
                 </ul>
