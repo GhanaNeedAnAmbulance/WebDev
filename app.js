@@ -51,7 +51,8 @@ var app = new Vue({
                     new google.maps.Marker({
                         position: this.userLocation,
                         map: app.map,
-                        icon: './bluecircle.png'
+                        icon: './bluecircle.png',
+                        zIndex: 0
                     })
 
                     formatRequest()
